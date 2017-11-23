@@ -1,5 +1,10 @@
 const audioFiles = document.getElementsByTagName('audio');
-const drumDivs = document.getElementsByClassName('key');
+const drumDivs = document.querySelectorAll('.key');
+drumDivs.forEach(key => key.addEventListener('transitionend', function(e) {
+  if(e.propertyName === 'transform') {
+    this.classList.remove('playing');
+  }
+}));
 let audioFilesObjects = {};
 let drumObjects = {};
 for(let i = 0; i < audioFiles.length; i++) {
@@ -10,19 +15,23 @@ for(let i = 0; i < drumDivs.length; i++) {
 }
 
 function playAudio(id) {
+    if(!audioFilesObjects[id]) {
+      return;
+    }
     let file = audioFilesObjects[id];
     file.currentTime = 0;
     file.play();
 }
 
-function toggleCSS(id) {
-  console.log(drumObjects[id]);
-  drumObjects[id].className += " playing";
-  setTimeout(() => { drumObjects[id].className = "key"; }, 50);
+function addCSS(id) {
+  if(!drumObjects[id]) {
+    return;
+  }
+  drumObjects[id].classList.add("playing");
 }
 
 document.addEventListener('keydown', (event) => {
   let keyCode = event.keyCode;
-  toggleCSS(keyCode);
+  addCSS(keyCode);
   playAudio(keyCode);
 });
