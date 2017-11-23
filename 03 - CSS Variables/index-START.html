@@ -22,9 +22,24 @@
 
   <style>
 
+    :root {
+      --base: #ffc600;
+      --blur: 10px;
+      --spacing: 10px;
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
+
+    img {
+      background-color: var(--base);
+      filter: blur(var(--blur));
+      padding: var(--spacing);
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     body {
       text-align: center;
