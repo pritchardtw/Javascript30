@@ -2,14 +2,9 @@ const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
 let itemCount = 0;
 
-let items = JSON.parse(localStorage.getItem('item1'));
+const items = JSON.parse(localStorage.getItem('item1')) || [];
 itemsList.innerHTML = "";
-
-if(items) {
-  renderItems(items);
-} else {
-  items = [];
-}
+renderItems(items);
 
 function toggleCheck(e) {
   const index = e.target.getAttribute('data-id');
