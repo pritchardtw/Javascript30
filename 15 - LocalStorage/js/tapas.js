@@ -2,7 +2,7 @@ const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
 let itemCount = 0;
 
-let items = JSON.parse(localStorage.getItem('items'));
+let items = JSON.parse(localStorage.getItem('item1'));
 itemsList.innerHTML = "";
 
 if(items) {
@@ -16,7 +16,7 @@ function toggleCheck(e) {
   const childInput = document.querySelector(`input[data-id='${index}']`);
   childInput.checked = !childInput.checked;
   items[index].checked = !items[index].checked;
-  localStorage.setItem('items', JSON.stringify(items));
+  localStorage.setItem('item1', JSON.stringify(items));
 }
 
 function renderItems(items) {
@@ -46,11 +46,12 @@ function handleSubmit(e) {
   e.preventDefault();
   let newItem = {};
   newItem.text = e.target[0].value;
+  this.reset();
   newItem.checked = false;
   newItem.id = itemCount;
   items.push(newItem);
-  localStorage.setItem('items', JSON.stringify(items));
+  localStorage.setItem('item1', JSON.stringify(items));
   renderItems([newItem]);
 }
 
-document.addEventListener('submit', handleSubmit);
+addItems.addEventListener('submit', handleSubmit);
